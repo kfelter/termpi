@@ -11,7 +11,7 @@ ADD yarn.lock .
 RUN yarn install --no-progress
 
 ADD . .
-RUN buffalo build --mod mod -o /bin/app
+RUN buffalo build --mod mod --static -o /bin/app
 # RUN GOOS=linux GOARCH=arm GOARM=5 go build -o /bin/things ./cmd/client/
 
 FROM alpine
