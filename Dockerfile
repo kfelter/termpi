@@ -12,7 +12,7 @@ RUN yarn install --no-progress
 
 ADD . .
 RUN buffalo build --mod mod --static -o /bin/app
-# RUN GOOS=linux GOARCH=arm GOARM=5 go build -o /bin/things ./cmd/client/
+RUN GOOS=linux GOARCH=arm GOARM=5 go build -o /bin/things ./cmd/client/
 
 FROM alpine
 RUN apk add --no-cache curl
@@ -22,7 +22,7 @@ RUN apk add --no-cache ca-certificates
 WORKDIR /bin/
 
 COPY --from=builder /bin/app .
-# COPY --from=builder /bin/things .
+COPY --from=builder /bin/things .
 
 # Uncomment to run the binary in "production" mode:
 # ENV GO_ENV=production
