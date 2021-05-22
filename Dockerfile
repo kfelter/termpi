@@ -2,9 +2,6 @@
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
 FROM gobuffalo/buffalo:v0.16.23 as builder
 
-ENV GO111MODULE on
-ENV GOPROXY http://proxy.golang.org
-
 RUN mkdir -p /src/github.com/kfelter/termpi
 WORKDIR /src/github.com/kfelter/termpi
 
@@ -12,15 +9,9 @@ WORKDIR /src/github.com/kfelter/termpi
 ADD package.json .
 ADD yarn.lock .
 RUN yarn install --no-progress
-# Copy the Go Modules manifests
-COPY go.mod go.mod
-COPY go.sum go.sum
-# cache deps before building and copying source so that we don't need to re-download as much
-# and so that source changes don't invalidate our downloaded layer
-RUN go mod download
 
 ADD . .
-RUN buffalo build --static -o /bin/app
+RUN buffalo build --mod mod --static -o /bin/app
 
 FROM alpine
 RUN apk add --no-cache curl
