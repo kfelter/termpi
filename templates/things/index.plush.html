@@ -1,0 +1,33 @@
+<div class="py-4 mb-2">
+  <h3 class="d-inline-block">Things</h3>
+  <div class="float-right">
+    <%= linkTo(newThingsPath(), {class: "btn btn-primary"}) { %>
+      Create New Thing
+    <% } %>
+  </div>
+</div>
+
+<table class="table table-hover table-bordered">
+  <thead class="thead-light">
+    <th>Name</th><th>Notes</th><th>Secret</th><th>Status</th><th>Tags</th><th>UserID</th>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (thing) in things { %>
+      <tr>
+        <td class="align-middle"><%= thing.Name %></td><td class="align-middle"><%= thing.Notes %></td><td class="align-middle"><%= thing.Secret %></td><td class="align-middle"><%= thing.Status %></td><td class="align-middle"><%= thing.Tags %></td><td class="align-middle"><%= thing.UserID %></td>
+        <td>
+          <div class="float-right">
+            <%= linkTo(thingPath({ thing_id: thing.ID }), {class: "btn btn-info", body: "View"}) %>
+            <%= linkTo(editThingPath({ thing_id: thing.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+            <%= linkTo(thingPath({ thing_id: thing.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>

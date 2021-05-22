@@ -1,0 +1,67 @@
+<div class="py-4 mb-2">
+  <h3 class="d-inline-block">Thing Details</h3>
+
+  <div class="float-right">
+    <%= linkTo(thingsPath(), {class: "btn btn-info"}) { %>
+      Back to all Things
+    <% } %>
+    <%= linkTo(editThingPath({ thing_id: thing.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+    <%= linkTo(thingPath({ thing_id: thing.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+  </div>
+</div>
+
+
+
+<ul class="list-group mb-2 ">
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">ID</label>
+    <p class="d-inline-block"><%= thing.ID %></p>
+  </li>
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">Name</label>
+    <p class="d-inline-block"><%= thing.Name %></p>
+  </li>
+
+
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">Notes</label>
+    <p class="d-inline-block"><%= thing.Notes %></p>
+  </li>
+
+
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">Secret</label>
+    <p class="d-inline-block"><%= thing.Secret %></p>
+  </li>
+
+
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">Status</label>
+    <p class="d-inline-block"><%= thing.Status %></p>
+  </li>
+
+
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">Tags</label>
+    <p class="d-inline-block">
+      <%= for (tag) in thing.Tags { %>
+      <%= tag %><br>
+      <% } %>
+    </p>
+  </li>
+
+
+
+  <li class="list-group-item pb-1">
+    <label class="small d-block">UserID</label>
+    <p class="d-inline-block"><%= thing.UserID %></p>
+  </li>
+
+
+</ul>
