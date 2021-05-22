@@ -24,10 +24,6 @@ func AuthNew(c buffalo.Context) error {
 	return c.Render(200, r.HTML("auth/new.plush.html"))
 }
 
-func AuthSuccess(c buffalo.Context) error {
-	return c.Render(200, r.String("auth/success.plush.html"))
-}
-
 // AuthCreate attempts to log the user in with an existing account.
 func AuthCreate(c buffalo.Context) error {
 	u := &models.User{}

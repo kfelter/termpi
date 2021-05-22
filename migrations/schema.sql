@@ -19,6 +19,24 @@ SET row_security = off;
 SET default_tablespace = '';
 
 --
+-- Name: devices; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.devices (
+    id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
+    tags character varying[] NOT NULL,
+    status character varying(255) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.devices OWNER TO postgres;
+
+--
 -- Name: schema_migration; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -28,6 +46,25 @@ CREATE TABLE public.schema_migration (
 
 
 ALTER TABLE public.schema_migration OWNER TO postgres;
+
+--
+-- Name: things; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.things (
+    id uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    notes character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
+    status character varying(255) NOT NULL,
+    tags character varying[] NOT NULL,
+    user_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.things OWNER TO postgres;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -43,6 +80,22 @@ CREATE TABLE public.users (
 
 
 ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: devices devices_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.devices
+    ADD CONSTRAINT devices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: things things_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.things
+    ADD CONSTRAINT things_pkey PRIMARY KEY (id);
+
 
 --
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres

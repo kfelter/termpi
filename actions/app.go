@@ -78,6 +78,10 @@ func App() *buffalo.App {
 		users.POST("/", UsersCreate)
 		users.Middleware.Remove(Authorize)
 
+		app.Resource("/things", ThingsResource{})
+		app.POST("/v1/ping", V1Ping)
+		app.Middleware.Skip(Authorize, V1Ping)
+		app.GET("/v1/client", V1Client)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 
