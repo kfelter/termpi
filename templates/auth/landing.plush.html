@@ -9,14 +9,14 @@
     margin-right: 10px;
   }
 </style>
-
-<div class="auth-center">
-  <%= if (current_user) { %>
-    <h1><%= current_user.Email %></h1>
-    <%= linkTo(authPath(), {data-method: "DELETE"}){ %>Sign Out<% } %>
-  <% } else { %>
-    <%= linkTo(newAuthPath()){ %>Sign In<% } %>
-    <%= linkTo(newUsersPath()){ %>Register<% } %>
-  <% } %>
+<div>
+  Create an account to get started keeping track of your raspberry pi and other iot devices
 </div>
+<%= if (current_user) { %>
+  <h1><%= current_user.Email %></h1>
+  <div>><%= linkTo(authPath(), {data-method: "DELETE"}){ %>Sign Out<% } %></div>
+<% } else { %>
+  <div><%= linkTo(newAuthPath()){ %>Sign In<% } %></div>
+  <div><%= linkTo(newUsersPath()){ %>Register<% } %></div>
+<% } %>
 

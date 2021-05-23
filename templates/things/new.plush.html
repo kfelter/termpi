@@ -1,7 +1,38 @@
+<style>
+  .code {
+    font-family:'Courier New', Courier, monospace;
+    color: black;
+    background-color: #f1f1f1;
+    padding: 2px;
+    font-size: 105%;
+  }
+  </style>
+
 <div class="py-4 mb-2">
   <h3 class="d-inline-block">New Thing</h3>
 </div>
-
+<div>
+<p>Create a new thing to track.<br> 
+  Once you click create, a secret and id will be generated for you.<br>
+  Use the cli client to connect your raspberry pi.<br>
+  The client can be downloaded <a href="<%= rootPath() %>/v1/client">here</a>.<br>
+  The recommended setup is to put the client into this script.</p>
+  <h4>/home/pi/things.sh</h4>
+  <div class="code">
+    #!/bin/bash<br>
+    export THING_ID=generated_thing_id<br>
+    export THING_SECRET=generated_thing_secret<br>
+    /usr/local/bin/things -a "https://desolate-hamlet-65857.herokuapp.com"<br>
+  </div>
+  <h4>Make sure the file is executable</h4>
+  <div class="code">chmod 755 /home/pi/things.sh</div>
+  <h4>Add the script to run as a cron job</h4>
+  <div class="code">crontab -e</div>
+  <div class="code">* * * * * /home/pi/things.sh >> /home/pi/things.log</div>
+  <h4>Check the log file to make sure the cron is running successfully</h4>
+  <div class="code">watch cat things.log</div>
+</div>
+<br>
 <%= formFor(thing, {action: thingsPath(), method: "POST"}) { %>
   <%= partial("things/form.html") %>
   <%= linkTo(thingsPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>

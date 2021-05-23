@@ -8,6 +8,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop/v5"
@@ -50,7 +51,7 @@ func V1Ping(c buffalo.Context) error {
 		return c.Error(http.StatusForbidden, fmt.Errorf("secrets did not match"))
 	}
 
-	thing.Tags = joinTags(thing.Tags, pr.Tags)
+	thing.Tags = joinTags(thing.Tags, append(pr.Tags, "last_ping:"+time.Now().String())...)
 	thing.Status = pr.Status
 
 	_, err = tx.ValidateAndUpdate(thing)
@@ -61,7 +62,7 @@ func V1Ping(c buffalo.Context) error {
 	return c.Render(http.StatusOK, r.JSON(map[string]string{"status": "accepted"}))
 }
 
-func joinTags(existing, new []string) []string {
+func joinTags(existing []string, new ...string) []string {
 	r := []string{}
 	eMap := map[string]string{}
 	for _, t := range existing {

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gobuffalo/buffalo"
@@ -49,6 +50,16 @@ func (v ThingsResource) List(c buffalo.Context) error {
 	if err := q.All(things); err != nil {
 		return err
 	}
+
+	c.Set("getTagV", func(tags []string, k string) string {
+		for _, t := range tags {
+			ss := strings.SplitN(t, ":", 2)
+			if len(ss) == 2 && ss[0] == k {
+				return ss[1]
+			}
+		}
+		return ""
+	})
 
 	return responder.Wants("html", func(c buffalo.Context) error {
 		// Add the paginator to the context so it can be used in the template.
