@@ -6,6 +6,14 @@
     justify-content: center;
   }
 
+  .auth-wrapper-2{
+    height: 100%;
+    display: flex;
+    margin-top: 10%;
+    align-items: center;
+    justify-content: center;
+  }
+
   .auth-wrapper .sign-form{
     max-width: 350px;
     width: 100%;
@@ -18,13 +26,14 @@
 <div class="auth-wrapper">
   <div class="sign-form">
     <h1>Sign In</h1>
-    Demo Email: demo
-    Demo Password: demo
-
     <%= form_for(user, {action: authPath()}) { %>
       <%= f.InputTag("Email") %>
       <%= f.InputTag("Password", {type: "password"}) %>
       <button class="btn btn-success">Sign In!</button>
     <% } %>
   </div>
+</div>
+<div class="auth-wrapper-2">
+  Demo Email: demo<br>
+  Demo Password: demo<br>
 </div>
