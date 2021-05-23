@@ -202,7 +202,7 @@ func (v ThingsResource) Update(c buffalo.Context) error {
 
 	if tags.ReadOnly(thing.Tags) {
 		c.Flash().Add("message", "thing is read only")
-		return nil
+		return c.Redirect(302, "/things/%v", thing.ID)
 	}
 
 	// Bind Thing to the html form elements
@@ -264,7 +264,8 @@ func (v ThingsResource) Destroy(c buffalo.Context) error {
 
 	if tags.NoDestroy(thing.Tags) {
 		c.Flash().Add("message", "thing can't be destroyed")
-		return nil
+		return c.Redirect(302, "/things/%v", thing.ID)
+
 	}
 
 	if err := tx.Destroy(thing); err != nil {
