@@ -82,6 +82,7 @@ func App() *buffalo.App {
 		app.POST("/v1/ping", V1Ping)
 		app.Middleware.Skip(Authorize, V1Ping)
 		app.GET("/v1/client", V1Client)
+		app.Middleware.Skip(Authorize, V1Client)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 
