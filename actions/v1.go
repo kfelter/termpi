@@ -51,7 +51,7 @@ func V1Ping(c buffalo.Context) error {
 		return c.Error(http.StatusForbidden, fmt.Errorf("secrets did not match"))
 	}
 
-	thing.Tags = joinTags(thing.Tags, append(pr.Tags, "last_ping:"+time.Now().String())...)
+	thing.Tags = joinTags(thing.Tags, append(pr.Tags, "last_ping:"+time.Now().Format(time.RFC1123))...)
 	thing.Status = pr.Status
 
 	_, err = tx.ValidateAndUpdate(thing)

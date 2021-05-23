@@ -51,7 +51,11 @@ func (v ThingsResource) List(c buffalo.Context) error {
 		return err
 	}
 
-	c.Set("getTagV", tags.GetTagV)
+	c.Set("lastPing", func(t []string) string {
+		v := tags.GetTagV(t, "last_ping")
+		lastPing, _ := time.Parse(time.RFC1123, v)
+		return time.Since(lastPing).Round(1 * time.Second).String()
+	})
 
 	return responder.Wants("html", func(c buffalo.Context) error {
 		// Add the paginator to the context so it can be used in the template.

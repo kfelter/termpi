@@ -9,13 +9,13 @@
 
 <table class="table table-hover table-bordered">
   <thead class="thead-light">
-    <th>Name</th><th>Status</th><th>Last Ping</th>
+    <th>Name</th><th>Status</th><th>Time Since Last Ping</th>
     <th>&nbsp;</th>
   </thead>
   <tbody>
     <%= for (thing) in things { %>
       <tr>
-        <td class="align-middle"><%= thing.Name %></td><td class="align-middle"><%= thing.Status %></td><td><%= getTagV(thing.Tags, "last_ping") %></td>
+        <td class="align-middle"><%= thing.Name %></td><td class="align-middle"><%= thing.Status %></td><td><%= lastPing(thing.Tags) %></td>
         <td>
           <div class="float-right">
             <%= linkTo(thingPath({ thing_id: thing.ID }), {class: "btn btn-info", body: "View"}) %>
